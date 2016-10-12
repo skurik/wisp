@@ -20,6 +20,9 @@ router.get('/', function (req, res, next) {
 
   res.redirect(authAbsoluteUri);
 
+
+  /*test*/
+
   /*https.get({
         host: spotifyAuthUriHost,        
         path: authUri
