@@ -1,26 +1,21 @@
 var express = require('express'),
-  router = express.Router(),  
-  Article = require('../models/article');
+  router = express.Router(),
+  config = require('../../config/config');
 
 const https = require('https');
-const spotifyAuthUriHost = 'accounts.spotify.com';
-const spotifyAuthUriPath = '/authorize';
-const clientId = '92bacd0d9e1e4a6babeb8dc7ee6811ca';
-const clientSecret = 'e2cdde47291f4994a3ae6db46a02dc65';
-const redirectUri = 'http://wispyo.azurewebsites.net/authcallback';
 
 module.exports = function (app) {
   app.use('/', router);
 };
 
 router.get('/test', function(req, res, next) {
-    res.send('process.env.NODE_ENV: ' + process.env.NODE_ENV);
+    res.send('spotifyClientId: ' + config.spotifyClientId + '<br />process.env.NODE_ENV: ' + process.env.NODE_ENV);
 });
 
 router.get('/', function (req, res, next) {
 
-  var authUri = spotifyAuthUriPath + '?client_id=' + clientId + '&response_type=code&state=0&redirect_uri=' + redirectUri;
-  var authAbsoluteUri = 'https://' + spotifyAuthUriHost + authUri;
+  var authUri = config.spotifyAuthUriPath + '?client_id=' + config.spotifyClientId + '&response_type=code&state=0&redirect_uri=' + config.authRedirectUri;
+  var authAbsoluteUri = 'https://' + config.spotifyAuthUriHost + authUri;
   console.log(authUri);
 
   res.redirect(authAbsoluteUri);

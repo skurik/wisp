@@ -2,7 +2,9 @@ var path = require('path'),
     rootPath = path.normalize(__dirname + '/..'),
     env = process.env.NODE_ENV || 'development';
 
-var config = {
+var config = require('./config.' + env);
+
+var envConfig = {
   development: {
     root: rootPath,
     app: {
@@ -28,4 +30,4 @@ var config = {
   }
 };
 
-module.exports = config[env];
+module.exports = Object.assign(config, envConfig[env]);
