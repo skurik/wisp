@@ -10,7 +10,7 @@ module.exports = function (app) {
 
 router.get('/', function (req, res, next) {
 
-  res.send('finito');
+  //res.send('finito');
 
   var data = querystring.stringify({
       grant_type: 'authorization_code',
