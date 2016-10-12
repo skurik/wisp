@@ -20,7 +20,7 @@ router.get('/', function (req, res, next) {
     method: 'POST',
     port: 443,
     host: config.spotifyAuthUriHost,
-    path: config.spotifyAuthTokenUriPath + '?grant_type=authorization_code&code=' + req.query.code + '&redirect_uri=' + encodeURIComponent(config.authRedirectUri),
+    path: config.spotifyAuthTokenUriPath,
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
       'Content-Length': Buffer.byteLength(data),
