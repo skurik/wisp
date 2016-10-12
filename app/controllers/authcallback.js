@@ -26,6 +26,7 @@ router.get('/', function (req, res, next) {
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
       'Content-Length': Buffer.byteLength(data),
+      'Accept': 'application/json',
       'Authorization': 'Basic ' + new Buffer(config.spotifyClientId + ':' + config.spotifyClientSecret).toString('base64')
     }
   };
