@@ -14,7 +14,7 @@ router.get('/test', function(req, res, next) {
 
 router.get('/', function (req, res, next) {
 
-  var authUri = config.spotifyAuthUriPath + '?client_id=' + config.spotifyClientId + '&response_type=code&state=0&scope=' + encodeURIComponent(config.spotifyAuthScopes) + '&show_dialog=true&redirect_uri=' + encodeURIComponent(config.authRedirectUri);
+var authUri = config.spotifyAuthUriPath + '?client_id=' + config.spotifyClientId + '&response_type=code&state=0&scope=' + encodeURIComponent(config.spotifyAuthScopes) + '&show_dialog=true&redirect_uri=' + encodeURIComponent(config.authRedirectUri);
   var authAbsoluteUri = 'https://' + config.spotifyAuthUriHost + authUri;
   console.log(authUri);
 

@@ -1,4 +1,5 @@
 var express = require('express'),
+  querystring = require('querystring'),
   router = express.Router(),
   https = require('https'),
   config = require('../../config/config');
@@ -9,14 +10,25 @@ module.exports = function (app) {
 
 router.get('/', function (req, res, next) {
 
-  https.request({
+  var data = querystring.stringify({
+      grant_type: 'authorization_code',
+      code: req.query.code,
+      redirect_uri: encodeURIComponent(config.authRedirectUri)
+  });
+
+  var options = {
     method: 'POST',
+    port: 443,
     host: config.spotifyAuthUriHost,
     path: config.spotifyAuthTokenUriPath + '?grant_type=authorization_code&code=' + req.query.code + '&redirect_uri=' + encodeURIComponent(config.authRedirectUri),
     headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Content-Length': Buffer.byteLength(data),
       'Authorization': 'Basic ' + new Buffer(config.spotifyClientId + ':' + config.spotifyClientSecret).toString('base64')
     }
-  }, function(spotifyRes) {
+  };
+
+  var tokenReq = https.request(options, function(spotifyRes) {
         
         var body = '';
         spotifyRes.on('data', function(d) {
@@ -35,5 +47,6 @@ router.get('/', function (req, res, next) {
         });
   });
 
-  //res.send('code: ' + req.query.code + '<br />state: ' + req.query.state);
+  tokenReq.write(data);
+  tokenReq.end();  
 });
