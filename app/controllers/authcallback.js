@@ -6,5 +6,5 @@ module.exports = function (app) {
 };
 
 router.get('/', function (req, res, next) {
-  res.send('Hello from the auth callback');
+  res.send('code: ' + req.query.code + '<br />state: ' + req.query.state);
 });
