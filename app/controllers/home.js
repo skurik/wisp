@@ -13,6 +13,10 @@ module.exports = function (app) {
   app.use('/', router);
 };
 
+router.get('/test', function(req, res, next) {
+    res.send('process.env.NODE_ENV: ' + process.env.NODE_ENV);
+});
+
 router.get('/', function (req, res, next) {
 
   var authUri = spotifyAuthUriPath + '?client_id=' + clientId + '&response_type=code&state=0&redirect_uri=' + redirectUri;
