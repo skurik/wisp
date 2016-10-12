@@ -14,14 +14,11 @@ router.get('/test', function(req, res, next) {
 
 router.get('/', function (req, res, next) {
 
-  var authUri = config.spotifyAuthUriPath + '?client_id=' + config.spotifyClientId + '&response_type=code&state=0&redirect_uri=' + config.authRedirectUri;
+  var authUri = config.spotifyAuthUriPath + '?client_id=' + config.spotifyClientId + '&response_type=code&state=0&scopes=' + encodeURIComponent(config.spotifyAuthScopes) + '&redirect_uri=' + encodeURIComponent(config.authRedirectUri);
   var authAbsoluteUri = 'https://' + config.spotifyAuthUriHost + authUri;
   console.log(authUri);
 
-  res.redirect(authAbsoluteUri);
-
-
-  /*test*/
+  res.redirect(authAbsoluteUri);  
 
   /*https.get({
         host: spotifyAuthUriHost,        
