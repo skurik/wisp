@@ -9,7 +9,8 @@ module.exports = function (app) {
 
 router.get('/', function (req, res, next) {
 
-  https.post({
+  https.request({
+    method: 'POST',
     host: config.spotifyAuthUriHost,
     path: config.spotifyAuthTokenUriPath + '?grant_type=authorization_code&code=' + req.query.code + '&redirect_uri=' + encodeURIComponent(config.authRedirectUri),
     headers: {
