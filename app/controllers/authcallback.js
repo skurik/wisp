@@ -8,9 +8,7 @@ module.exports = function (app) {
   app.use('/authcallback', router);
 };
 
-router.get('/', function (req, res, next) {
-
-  //res.send('finito');
+router.get('/', function (req, res, next) {  
 
   var data = querystring.stringify({
       grant_type: 'authorization_code',
@@ -42,7 +40,8 @@ router.get('/', function (req, res, next) {
             try {
                 console.log('Read the following from the Spotify\'s auth endpoint:\n');
                 console.log(body);
-                res.send(body);
+                var authData = JSON.parse(body);
+                res.send(`Access token: ${body.access_token}\r\nRefresh token: ${body.refresh_token}`);
 
             } catch (err) {
                 console.error('An error ocurred while reading the Spotify auth endpoint response', err);
