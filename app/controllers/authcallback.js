@@ -41,7 +41,7 @@ router.get('/', function (req, res, next) {
                 console.log('Read the following from the Spotify\'s auth endpoint:\n');
                 console.log(body);
                 var authData = JSON.parse(body);
-                res.send(`Access token: ${body.access_token}\r\nRefresh token: ${body.refresh_token}`);
+                res.send(`Access token: ${authData.access_token}\r\nRefresh token: ${authData.refresh_token}`);
 
             } catch (err) {
                 console.error('An error ocurred while reading the Spotify auth endpoint response', err);
