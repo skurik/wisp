@@ -51,7 +51,7 @@ router.get('/', function (req, res, next) {
 
                 client.getUserInfo(authData.access_token, function(userResp) {
                   var id = JSON.parse(userResp).id;
-                  res.send(userResp);
+                  // res.send(userResp);
 
                   client.getCurrentUserPlaylists(authData.access_token, function(playlistsRespJson) {
                     var playlists = JSON.parse(playlistsRespJson);
