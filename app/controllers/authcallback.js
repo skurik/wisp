@@ -51,7 +51,7 @@ router.get('/', function (req, res, next) {
 
                 client.getUserInfo(authData.access_token, function(userResp) {
                   var id = JSON.parse(userResp).id;
-                  client.getCurrentUserPlaylists(authData.accessToken, function(playlistsRespJson) {
+                  client.getCurrentUserPlaylists(authData.access_token, function(playlistsRespJson) {
                     var playlists = JSON.parse(playlistsRespJson);
                     var playlistTitles = playlists.items.map(function(p) { return `<li>${p.name}</li>`; }).join('\r\n');
                     res.send(`<h2>Welcome, ${id}!<h2><p>In case you forgot, here are your playlists:</p><ul>${playlistTitles}</ul>`);
