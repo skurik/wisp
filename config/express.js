@@ -24,14 +24,14 @@ module.exports = function(app, config) {
     extended: true
   }));
   app.use(cookieParser());
-  /*app.use(session({
+  app.use(session({
     secret: 'totallysecret',
     name: 'wisp-sess',
     // store: sessionStore, // connect-mongo session store
     proxy: true,
-    resave: true,
+    resave: false,
     saveUninitialized: true
-  }));*/
+  }));
   app.use(compress());
   app.use(express.static(config.root + '/public'));
   app.use(methodOverride());
