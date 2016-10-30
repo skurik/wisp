@@ -23,6 +23,7 @@ module.exports = function(app, config) {
     extended: true
   }));
   app.use(cookieParser());
+  app.use(express.session());  
   app.use(compress());
   app.use(express.static(config.root + '/public'));
   app.use(methodOverride());
