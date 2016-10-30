@@ -2,7 +2,8 @@ var express = require('express'),
   querystring = require('querystring'),
   router = express.Router(),
   https = require('https'),
-  config = require('../../config/config');
+  config = require('../../config/config'),
+  client = new (require('../spotify/client'))();
 
 module.exports = function (app) {
   app.use('/authcallback', router);
@@ -42,7 +43,10 @@ router.get('/', function (req, res, next) {
                 console.log(body);
                 req.session.wisp = { logged: true };
                 var authData = JSON.parse(body);
-                res.send(`Access token: ${authData.access_token}\r\nRefresh token: ${authData.refresh_token}`);
+
+                client.getUserMail(authData.access_token, function(resp) { res.send(resp); }, function() { res.send('/me: error'); })
+
+                // res.send(`Access token: ${authData.access_token}\r\nRefresh token: ${authData.refresh_token}`);
 
             } catch (err) {
                 console.error('An error ocurred while reading the Spotify auth endpoint response', err);
