@@ -45,7 +45,7 @@ router.get('/', function (req, res, next) {
                 var authData = JSON.parse(body);
                 var errorHandler = function(area, e) {
                   return function(e) {
-                    res.send(`${area}: ${e}`);
+                    res.send(`${area}: ${e}<br />Access token: ${authData.access_token}`);
                   }
                 };
 
