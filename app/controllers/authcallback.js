@@ -51,12 +51,15 @@ router.get('/', function (req, res, next) {
 
                 client.getUserInfo(authData.access_token, function(userResp) {
                   var id = JSON.parse(userResp).id;
-                  client.getCurrentUserPlaylists(authData.access_token, function(playlistsRespJson) {
+                  res.send(userResp);
+
+
+                  /*client.getCurrentUserPlaylists(authData.access_token, function(playlistsRespJson) {
                     var playlists = JSON.parse(playlistsRespJson);
                     var playlistTitles = playlists.items.map(function(p) { return `<li>${p.name}</li>`; }).join('\r\n');
                     res.send(`<h2>Welcome, ${id}!<h2><p>In case you forgot, here are your playlists:</p><ul>${playlistTitles}</ul>`);
 
-                  }, errorHandler('playlists'));
+                  }, errorHandler('playlists'));*/
                 }, errorHandler('user info'));
 
                 // res.send(`Access token: ${authData.access_token}\r\nRefresh token: ${authData.refresh_token}`);
