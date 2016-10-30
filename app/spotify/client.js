@@ -9,7 +9,7 @@ module.exports = function () {
     };
 
     self.getCurrentUserPlaylists = function(accessToken, success, error) {
-        self.get(config.spotifyApiHost, '/v1/me/playlists', success, error);
+        self.get(config.spotifyApiHost, '/v1/me/playlists', accessToken, success, error);
     };
 
     self.getUserPlaylists = function(accessToken, userId, success, error) {
