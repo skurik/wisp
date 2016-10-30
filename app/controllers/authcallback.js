@@ -81,6 +81,8 @@ router.get('/', function (req, res, next) {
                       }
                     }
 
+                    var artistCountOutput = JSON.stringify(artistCounter);// artistCounts.map(function(a) { return `<li>${a.artistName}: ${a.count}`; }).join('\r\n');
+
                     var artistCountOutput = artistCounts.map(function(a) { return `<li>${a.artistName}: ${a.count}`; }).join('\r\n');
 
                     res.send(`<h2>Welcome, ${id}!</h2><p>In case you forgot, here are your playlists:</p><ul>${playlistTitles}</ul><br />${artistCountOutput}`);
