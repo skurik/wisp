@@ -40,7 +40,7 @@ router.get('/', function (req, res, next) {
             try {
                 console.log('Read the following from the Spotify\'s auth endpoint:\n');
                 console.log(body);
-                req.session.wisp = { logged: true };
+                // req.session.wisp = { logged: true };
                 var authData = JSON.parse(body);
                 res.send(`Access token: ${authData.access_token}\r\nRefresh token: ${authData.refresh_token}`);
 
