@@ -4,8 +4,16 @@ var https = require('https');
 module.exports = function () {
     var self = this;
 
-    self.getUserMail = function(accessToken, success, error) {
+    self.getUserInfo = function(accessToken, success, error) {
         self.get(config.spotifyApiHost, '/v1/me', accessToken, success, error);
+    };
+
+    self.getCurrentUserPlaylists = function(accessToken, success, error) {
+        self.get(config.spotifyApiHost, '/v1/me/playlists', success, error);
+    };
+
+    self.getUserPlaylists = function(accessToken, userId, success, error) {
+        self.get(config.spotifyApiHost, `/v1/users/${userId}/playlists`, success, error);
     };
 
     self.request = function(hostName, uri, method, accessToken, body, success, error) {
