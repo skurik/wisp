@@ -1,10 +1,11 @@
 var config = require('../../config/config');
+var https = require('https');
 
 module.exports = function () {
     var self = this;
 
     self.getUserMail = function(accessToken, success, error) {
-        get(config.spotifyApiHost, '/v1/me', accessToken, success, error);
+        self.get(config.spotifyApiHost, '/v1/me', accessToken, success, error);
     };
 
     self.request = function(hostName, uri, method, accessToken, body, success, error) {
@@ -53,6 +54,6 @@ module.exports = function () {
     };    
 
     self.get = function(hostName, uri, accessToken, success, error) {
-        request(hostName, uri, 'GET', accessToken, null, success, error);
+        self.request(hostName, uri, 'GET', accessToken, null, success, error);
     };
 };
