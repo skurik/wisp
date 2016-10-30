@@ -54,9 +54,36 @@ router.get('/', function (req, res, next) {
                   // res.send(userResp);
 
                   client.getCurrentUserPlaylists(authData.access_token, function(playlistsRespJson) {
-                    var playlists = JSON.parse(playlistsRespJson);
-                    var playlistTitles = playlists.items.map(function(p) { return `<li>${p.name}</li>`; }).join('\r\n');
-                    res.send(`<h2>Welcome, ${id}!<h2><p>In case you forgot, here are your playlists:</p><ul>${playlistTitles}</ul>`);
+                    var playlists = JSON.parse(playlistsRespJson).items;
+                    var artistCounter = {};
+
+                    playlists.forEach(function(p) {
+                        client.getPlaylistTracks(authData.access_token, p, function (tracksJson) {
+                          var tracks = JSON.parse(tracksJson).items;
+                          tracks.forEach(function(track) {
+                            if (track.artists && track.artists.length > 0) {
+                              var artist = track.artists[0].name;
+                              if (typeof artistCounter.artist !== 'undefined') {
+                                artistCounter[artist]++;
+                              } else {
+                                artistCounter[artist] = 1;
+                              }                              
+                            }
+                          });
+                        }, errorHandler('playlist tracks'));                    
+                    });
+
+                    var playlistTitles = playlists.map(function(p) { return `<li>${p.name}</li>`; }).join('\r\n');
+                    var artistCounts = [];
+                    for (var artistName in artistCounter) {
+                      if (artistCounter.hasOwnProperty(artistName)) {
+                        artistCounts.push({ artistName: artistName, count: artistCounter[artistName] });
+                      }
+                    }
+
+                    var artistCountOutput = artistCounts.map(function(a) { return `<li>${a.artistName}: ${a.count}`; }).join('\r\n');
+
+                    res.send(`<h2>Welcome, ${id}!</h2><p>In case you forgot, here are your playlists:</p><ul>${playlistTitles}</ul><br />${artistCountOutput}`);
 
                   }, errorHandler('playlists'));
                 }, errorHandler('user info'));

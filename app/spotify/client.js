@@ -16,6 +16,10 @@ module.exports = function () {
         self.get(config.spotifyApiHost, `/v1/users/${userId}/playlists`, success, error);
     };
 
+    self.getPlaylistTracks = function(accessToken, playlist, success, error) {
+        self.get(config.spotifyApiHost, playlist.tracks.href.substring(`https://${config.spotifyApiHost}`.length), success, error);
+    }
+
     self.request = function(hostName, uri, method, accessToken, body, success, error) {
         var options = {
             method: method,
