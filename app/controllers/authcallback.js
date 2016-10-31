@@ -71,6 +71,7 @@ router.get('/', function (req, res, next) {
                           //return;
                           
                           var tracks = JSON.parse(tracksJson).items;
+                          var artistList = tracks.map(function(t) { return t.artists[0].name; });
                           tracks.forEach(function(track) {
                             if (track.artists && track.artists.length > 0) {
                               var artist = track.artists[0].name;
@@ -82,7 +83,7 @@ router.get('/', function (req, res, next) {
                             }
                           });
 
-                          res.send(`${typeof playlists}<br /><pre>${JSON.stringify(playlists)}</pre><br/>Counter: ${cnt}<br /><pre>${JSON.stringify(tracks)}</pre><br />Track count: ${tracks.length}<br />Artist counter:<br /><pre>${JSON.stringify(artistCounter)}</pre>`);
+                          res.send(`${typeof playlists}<br /><pre>${JSON.stringify(playlists)}</pre><br/>Counter: ${cnt}<br /><pre>${JSON.stringify(tracks)}</pre><br />Track count: ${tracks.length}<br />Artist list: ${JSON.stringify(artistList)}<br />Artist counter:<br /><pre>${JSON.stringify(artistCounter)}</pre>`);
                           return;
 
                         }, errorHandler('playlist tracks'));
