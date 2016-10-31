@@ -66,13 +66,13 @@ router.get('/', function (req, res, next) {
                       cnt++;
                     });*/
 
-                    res.send(`${typeof playlists}<br /><pre>${JSON.stringify(playlists)}</pre>`);
-                    return;
+                    //res.send(`${typeof playlists}<br /><pre>${JSON.stringify(playlists)}</pre>`);
+                    //return;
 
                     playlists.forEach(function(p) {
                         client.getPlaylistTracks(authData.access_token, p, function (tracksJson) {
-                          res.send(tracksJson);
-                          return;
+                          //res.send(tracksJson);
+                          //return;
                           var tracks = JSON.parse(tracksJson).items;
                           tracks.forEach(function(track) {
                             if (track.artists && track.artists.length > 0) {
