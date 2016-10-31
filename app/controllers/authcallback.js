@@ -54,6 +54,9 @@ router.get('/', function (req, res, next) {
                   // res.send(userResp);
 
                   client.getCurrentUserPlaylists(authData.access_token, function(playlistsRespJson) {
+                    res.send(playlistsRespJson);
+                    return;
+
                     var playlists = JSON.parse(playlistsRespJson).items;
                     var artistCounter = {};
 
