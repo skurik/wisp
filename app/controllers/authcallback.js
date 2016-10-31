@@ -69,8 +69,7 @@ router.get('/', function (req, res, next) {
                     client.getPlaylistTracks(authData.access_token, playlists[0], function (tracksJson) {
                           //res.send(tracksJson);
                           //return;
-                          res.send(`${typeof playlists}<br /><pre>${JSON.stringify(playlists)}</pre><br/>Counter: ${cnt}<br />${tracksJson}`);
-                          return;
+                          
                           var tracks = JSON.parse(tracksJson).items;
                           tracks.forEach(function(track) {
                             if (track.artists && track.artists.length > 0) {
@@ -82,6 +81,10 @@ router.get('/', function (req, res, next) {
                               }                              
                             }
                           });
+
+                          res.send(`${typeof playlists}<br /><pre>${JSON.stringify(playlists)}</pre><br/>Counter: ${cnt}<br /><pre>${tracksJson}</pre><br />Artist counter:<br /><pre>${artistCounter}</pre>`);
+                          return;
+
                         }, errorHandler('playlist tracks'));
 
                     /*res.send(`${typeof playlists}<br /><pre>${JSON.stringify(playlists)}</pre><br/>Counter: ${cnt}`);
