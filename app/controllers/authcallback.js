@@ -66,7 +66,25 @@ router.get('/', function (req, res, next) {
                       cnt++;
                     });
 
-                    res.send(`${typeof playlists}<br /><pre>${JSON.stringify(playlists)}</pre><br/>Counter: ${cnt}`);
+                    client.getPlaylistTracks(authData.access_token, playlists[0], function (tracksJson) {
+                          //res.send(tracksJson);
+                          //return;
+                          res.send(`${typeof playlists}<br /><pre>${JSON.stringify(playlists)}</pre><br/>Counter: ${cnt}<br />${tracksJson}`);
+                          return;
+                          var tracks = JSON.parse(tracksJson).items;
+                          tracks.forEach(function(track) {
+                            if (track.artists && track.artists.length > 0) {
+                              var artist = track.artists[0].name;
+                              if (typeof artistCounter.artist !== 'undefined') {
+                                artistCounter[artist]++;
+                              } else {
+                                artistCounter[artist] = 1;
+                              }                              
+                            }
+                          });
+                        }, errorHandler('playlist tracks'));
+
+                    /*res.send(`${typeof playlists}<br /><pre>${JSON.stringify(playlists)}</pre><br/>Counter: ${cnt}`);
                     return;
 
                     playlists.forEach(function(p) {                        
@@ -99,7 +117,7 @@ router.get('/', function (req, res, next) {
 
                     // var artistCountOutput = artistCounts.map(function(a) { return `<li>${a.artistName}: ${a.count}`; }).join('\r\n');
 
-                    res.send(`<h2>Welcome, ${id}!</h2><p>In case you forgot, here are your playlists:</p><ul>${playlistTitles}</ul><br />${artistCountOutput}`);
+                    res.send(`<h2>Welcome, ${id}!</h2><p>In case you forgot, here are your playlists:</p><ul>${playlistTitles}</ul><br />${artistCountOutput}`);*/
 
                   }, errorHandler('playlists'));
                 }, errorHandler('user info'));
