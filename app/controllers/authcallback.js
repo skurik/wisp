@@ -74,7 +74,7 @@ router.get('/', function (req, res, next) {
                           tracks.forEach(function(track) {
                             if (track.artists && track.artists.length > 0) {
                               var artist = track.artists[0].name;
-                              if (typeof artistCounter.artist !== 'undefined') {
+                              if (artistCounter.hasOwnProperty(artist)) {
                                 artistCounter[artist]++;
                               } else {
                                 artistCounter[artist] = 1;
@@ -82,7 +82,7 @@ router.get('/', function (req, res, next) {
                             }
                           });
 
-                          res.send(`${typeof playlists}<br /><pre>${JSON.stringify(playlists)}</pre><br/>Counter: ${cnt}<br /><pre>${JSON.stringify(tracks)}</pre><br />Artist counter:<br /><pre>${JSON.stringify(artistCounter)}</pre>`);
+                          res.send(`${typeof playlists}<br /><pre>${JSON.stringify(playlists)}</pre><br/>Counter: ${cnt}<br /><pre>${JSON.stringify(tracks)}</pre><br />Track count: ${tracks.length}<br />Artist counter:<br /><pre>${JSON.stringify(artistCounter)}</pre>`);
                           return;
 
                         }, errorHandler('playlist tracks'));
