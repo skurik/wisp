@@ -66,7 +66,7 @@ router.get('/', function (req, res, next) {
                       cnt++;
                     });*/
 
-                    res.send(typeof playlists);
+                    res.send(`${typeof playlists}<br /><pre>${JSON.stringify(playlists)}</pre>`);
                     return;
 
                     playlists.forEach(function(p) {
