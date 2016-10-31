@@ -61,6 +61,14 @@ router.get('/', function (req, res, next) {
                     //var playlists = JSON.parse(playlistsRespJson).items;
                     var artistCounter = {};
 
+                    var cnt = 0;
+                    playlists.forEach(function(p) {
+                      cnt++;
+                    });
+
+                    res.send(cnt);
+                    return;
+
                     playlists.forEach(function(p) {
                         client.getPlaylistTracks(authData.access_token, p, function (tracksJson) {
                           res.send(tracksJson);
