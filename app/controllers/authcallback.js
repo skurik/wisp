@@ -62,11 +62,11 @@ router.get('/', function (req, res, next) {
                     var artistCounter = {};
 
                     var cnt = 0;
-                    playlists.forEach(function(p) {
+                    /*playlists.forEach(function(p) {
                       cnt++;
-                    });
+                    });*/
 
-                    res.send(cnt);
+                    res.send(typeof playlists);
                     return;
 
                     playlists.forEach(function(p) {
