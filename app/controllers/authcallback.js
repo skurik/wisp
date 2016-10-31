@@ -82,7 +82,7 @@ router.get('/', function (req, res, next) {
                             }
                           });
 
-                          res.send(`${typeof playlists}<br /><pre>${JSON.stringify(playlists)}</pre><br/>Counter: ${cnt}<br /><pre>${tracksJson}</pre><br />Artist counter:<br /><pre>${JSON.stringify(artistCounter)}</pre>`);
+                          res.send(`${typeof playlists}<br /><pre>${JSON.stringify(playlists)}</pre><br/>Counter: ${cnt}<br /><pre>${JSON.stringify(tracks)}</pre><br />Artist counter:<br /><pre>${JSON.stringify(artistCounter)}</pre>`);
                           return;
 
                         }, errorHandler('playlist tracks'));
