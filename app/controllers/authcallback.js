@@ -73,8 +73,8 @@ router.get('/', function (req, res, next) {
                           var tracks = JSON.parse(tracksJson).items;
                           var artistList = {}; //tracks.map(function(t) { return t.artists[0].name; });
                           tracks.forEach(function(track) {
-                            if (track.artists && track.artists.length > 0) {
-                              var artist = track.artists[0].name;
+                            if (track.track.artists && track.track.artists.length > 0) {
+                              var artist = track.track.artists[0].name;
                               if (artistCounter.hasOwnProperty(artist)) {
                                 artistCounter[artist]++;
                               } else {
