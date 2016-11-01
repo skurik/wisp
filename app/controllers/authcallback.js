@@ -83,7 +83,16 @@ router.get('/', function (req, res, next) {
                             }
                           });
 
-                          res.send(`${typeof playlists}<br /><pre>${JSON.stringify(playlists)}</pre><br/>Counter: ${cnt}<br /><pre>${JSON.stringify(tracks)}</pre><br />Track count: ${tracks.length}<br />Artist list: ${JSON.stringify(artistList)}<br />Artist counter:<br /><pre>${JSON.stringify(artistCounter)}</pre>`);
+                          res.send(`
+                            ${typeof playlists}
+                            <br />
+                            <pre>${JSON.stringify(playlists)}</pre><br/>
+                            Counter: ${cnt}<br />
+                            <pre>${JSON.stringify(tracks)}</pre><br />
+                            Track count: ${tracks.length}<br />
+                            Artist list: ${JSON.stringify(artistList)}<br />
+                            Artist counter:<br /><pre>${JSON.stringify(artistCounter)}</pre>`);
+                            
                           return;
 
                         }, errorHandler('playlist tracks'));
