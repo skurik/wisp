@@ -60,19 +60,22 @@ router.get('/', function (req, res, next) {
 
                     //var playlists = JSON.parse(playlistsRespJson).items;
                     var artistCounter = {};
+                    var tracksRead = 0;
 
                     var cnt = 0;
                     playlists.forEach(function(p) {
                       cnt++;
                     });
 
-                    client.getPlaylistTracks(authData.access_token, playlists[0], function (tracksJson) {
+                    playlists.forEach(function(playlist) {
+                      client.getPlaylistTracks(authData.access_token, playlist, function (tracksJson) {
                           //res.send(tracksJson);
                           //return;
                           
                           var tracks = JSON.parse(tracksJson).items;
                           var artistList = {}; //tracks.map(function(t) { return t.artists[0].name; });
                           tracks.forEach(function(track) {
+                            tracksRead++;
                             if (track.track.artists && track.track.artists.length > 0) {
                               var artist = track.track.artists[0].name;
                               if (artistCounter.hasOwnProperty(artist)) {
@@ -82,8 +85,10 @@ router.get('/', function (req, res, next) {
                               }                              
                             }
                           });
+                      }, errorHandler('playlist tracks'));
+                    });
 
-                          res.send(`
+                    res.send(`
                             ${typeof playlists}
                             <br />
                             <pre>${JSON.stringify(playlists)}</pre><br/>
@@ -91,11 +96,8 @@ router.get('/', function (req, res, next) {
                             <pre>${JSON.stringify(tracks)}</pre><br />
                             Track count: ${tracks.length}<br />
                             Artist list: ${JSON.stringify(artistList)}<br />
-                            Artist counter:<br /><pre>${JSON.stringify(artistCounter)}</pre>`);
-                            
-                          return;
-
-                        }, errorHandler('playlist tracks'));
+                            Artist counter:<br /><pre>${JSON.stringify(artistCounter)}</pre><br />
+                            Tracks read: ${tracksRead}`);
 
                     /*res.send(`${typeof playlists}<br /><pre>${JSON.stringify(playlists)}</pre><br/>Counter: ${cnt}`);
                     return;
