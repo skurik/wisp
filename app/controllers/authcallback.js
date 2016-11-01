@@ -3,7 +3,8 @@ var express = require('express'),
   router = express.Router(),
   https = require('https'),
   config = require('../../config/config'),
-  client = new (require('../spotify/client'))();
+  client = new (require('../spotify/client'))(),
+  async = require("async");
 
 module.exports = function (app) {
   app.use('/authcallback', router);
