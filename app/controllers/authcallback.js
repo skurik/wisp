@@ -93,9 +93,6 @@ router.get('/', function (req, res, next) {
                             <br />
                             <pre>${JSON.stringify(playlists)}</pre><br/>
                             Counter: ${cnt}<br />
-                            <pre>${JSON.stringify(tracks)}</pre><br />
-                            Track count: ${tracks.length}<br />
-                            Artist list: ${JSON.stringify(artistList)}<br />
                             Artist counter:<br /><pre>${JSON.stringify(artistCounter)}</pre><br />
                             Tracks read: ${tracksRead}`);
 
